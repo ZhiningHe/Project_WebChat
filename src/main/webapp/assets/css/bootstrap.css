@@ -71,6 +71,8 @@ mark {
 small {
   font-size: 80%;
 }
+
+
 sub,
 sup {
   position: relative;
@@ -6350,6 +6352,7 @@ button.close {
   display: none !important;
   visibility: hidden !important;
 }
+
 .affix {
   position: fixed;
 }

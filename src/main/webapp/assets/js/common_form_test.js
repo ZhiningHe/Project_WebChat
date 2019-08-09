@@ -59,5 +59,16 @@ function submitTest() {
         document.getElementById("change_margin_2").style.marginBottom = 1 + "px";
         document.getElementById("change_margin_3").style.marginTop = 2 + "px";
         return false;
+    }else if (b.length<6) { //用户框value值为空
+        document.getElementById("remind_1").innerHTML = "密码小于6位，安全度太弱";
+        document.getElementById("change_margin_1").style.marginBottom = 1 + "px";
+        return false;
     }
+}
+
+//保持聊天窗口滚动条一直在下面
+function scrollToBottom(){
+    var div = document.getElementsByClassName('Righthead');
+    div.innerHTML = div.innerHTML + '<br />';
+    div.scrollTop = div.scrollHeight;
 }
