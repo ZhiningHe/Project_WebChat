@@ -20,7 +20,7 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 /**
- * 服务端通过对dao层封装，对浏览器不同的做法的返回
+ * 服务端通过对service返回值的判断，对浏览器不同的返回
  * 控制下一步返回给浏览器的内容
  */
 

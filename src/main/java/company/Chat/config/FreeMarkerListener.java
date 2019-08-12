@@ -39,9 +39,9 @@ public class FreeMarkerListener implements ServletContextListener {
         sce.getServletContext().setAttribute(KEY,cfg);
     }
 
-    //销毁之前回调
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
 
     }
+
 }
