@@ -1,4 +1,5 @@
-package company.Chat.entity;
+package entity;
+
 
 import lombok.Data;
 

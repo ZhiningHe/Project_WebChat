@@ -1,6 +1,6 @@
 
 body{
-    background:#f5f5f5 url('../img/green.jpg') no-repeat center;
+    background:#f5f5f5 url('../img/flower.jpg') no-repeat center;
 	background-size:cover;
 	height:800px;
 	overflow:hidden;
@@ -10,7 +10,6 @@ body{
 .checkbox{
 padding:20px 0 0 30px;
 }
-
 .qqBox{
 	width: 798px;
 	height: 600px;
@@ -56,7 +55,7 @@ display: -webkit-box;
 .conLeft{
 	width: 200px;
 	overflow: auto;
-	background: #2e3238;
+	background: #1f2829;
 }
 .conLeft::-webkit-scrollbar{
 	width: 0;
@@ -107,7 +106,6 @@ background-color:hsla(0,0%,100%,.1);
 	width: 100%;
 	height: 42px;
 	border-bottom: 1px solid #ccc;
-	overflow-y: auto;
 }
 .headName{
 	width: auto;
@@ -125,11 +123,11 @@ background-color:hsla(0,0%,100%,.1);
 }
 .file{
 	width: auto;
-	height: 50%;
+	height: 100%;
 	line-height: 40px;
 	margin-left: 20px;
 	font-family: "Comic Sans MS";
-	font-size: 15px;
+	font-size: 30px;
 	float: left;
 }
 .headConfig{
@@ -296,7 +294,7 @@ transform: scale(1.2);
 .sendBtn{
 	width: 68px;
 	height: 25px;
-	background: #0188fb;
+	background: #7bae78;
 	border: none;
 	position: absolute;
 	bottom: 10px;

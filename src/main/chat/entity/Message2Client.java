@@ -1,4 +1,5 @@
-package company.Chat.entity;
+package entity;
+
 
 import lombok.Data;
 
@@ -40,3 +41,4 @@ public class Message2Client {
 
 
 }
+

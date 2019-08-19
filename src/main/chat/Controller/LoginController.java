@@ -1,14 +1,13 @@
-package company.Chat.Controller;
+package Controller;
+
 import	java.util.HashMap;
 
-
-import company.Chat.Service.ServiceHandle;
-import company.Chat.Utils.CommUtil;
-import company.Chat.config.FreeMarkerListener;
-import company.Chat.dao.BaseDao;
+import Config.FreeMarkerListener;
+import Utils.CommUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import service.ServiceHandle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,16 +16,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArraySet;
+
 
 /**
- * 服务端通过对service返回值的判断，对浏览器不同的返回
- * 控制下一步返回给浏览器的内容
+ * 登陆
  */
-
 @WebServlet(urlPatterns = "/login")
 public class LoginController extends HttpServlet {
     private ServiceHandle serviceHandle = new ServiceHandle();
+    //已经登陆的用户
+    public static CopyOnWriteArraySet<String> loaded = new CopyOnWriteArraySet<>();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("username");
@@ -41,25 +43,32 @@ public class LoginController extends HttpServlet {
                     "    </script>");
         }
         if (serviceHandle.service_loading(userName,password)) {
-            // 登录成功,跳转到聊天页面chat.ftl
-            //template相当于全局常量
-            Template template = getTemplate(req,"/chat.ftl");
-            Map<String, String> map = new HashMap<>();
-            map.put("username",userName);
-            try {
-                //把map（username）传到前端去
-                template.process(map, out);
-            } catch (TemplateException e) {
-                e.printStackTrace();
+            //还未登陆
+            if (!loaded.contains(userName)) {
+                // 登录成功,跳转到聊天页面
+                // 拿到聊天记录
+                loaded.add(userName);
+                Template template = getTemplate(req, "/chat.ftl");
+                Map<String, String> map = new HashMap<>();
+                map.put("username", userName);
+                try {
+                    template.process(map, out);
+                } catch (TemplateException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                out.println("    <script>\n" +
+                        "        alert(\"该用户已经在别地登陆!\");\n" +
+                        "        window.location.href = \"/index.html\";\n" +
+                        "    </script>");
             }
-        } else {
+        }else {
             // 登录失败,停留在登录页面
             out.println("    <script>\n" +
-                    "        alert(\"用户名或密码不正确,或者在其他地方已经登陆~\");\n" +
+                    "        alert(\"用户名或密码不正确!\");\n" +
                     "        window.location.href = \"/index.html\";\n" +
                     "    </script>");
         }
-
     }
 
     @Override
@@ -67,11 +76,9 @@ public class LoginController extends HttpServlet {
         doGet(req,resp);
     }
 
-    //传入跳转前页面的信息 和要加载的ftl路径
-    //获取ftl（全局对象）监听器
     private Template getTemplate(HttpServletRequest req,String fileName) {
         Configuration cfg = (Configuration)
-                req.getServletContext().getAttribute(FreeMarkerListener.KEY);
+                req.getServletContext().getAttribute(FreeMarkerListener.TEMPLATE_KEY);
         try {
             return cfg.getTemplate(fileName);
         } catch (IOException e) {
@@ -80,3 +87,4 @@ public class LoginController extends HttpServlet {
         return null;
     }
 }
+

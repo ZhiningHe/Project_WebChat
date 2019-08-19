@@ -1,9 +1,9 @@
-package company.Chat.dao;
+package dao;
 
+import Utils.CommUtil;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.alibaba.druid.pool.DruidPooledConnection;
-import company.Chat.Utils.CommUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -48,7 +48,7 @@ public class DaoHandle {
 
     //关闭资源
     protected static void closeRsc
-            (Connection connection, Statement statement){
+    (Connection connection, Statement statement){
         if (connection != null) {
             try {
                 connection.close();

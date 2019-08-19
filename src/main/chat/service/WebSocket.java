@@ -1,9 +1,9 @@
-package company.Chat.Service;
+package service;
 
-import company.Chat.Utils.CommUtil;
-import company.Chat.dao.BaseDao;
-import company.Chat.entity.Message2Client;
-import company.Chat.entity.MessageFromClient;
+import Controller.LoginController;
+import Utils.CommUtil;
+import entity.Message2Client;
+import entity.MessageFromClient;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -14,20 +14,23 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-//作为ws的终端
+/**
+ * @Author: yuisama
+ * @Date: 2019-08-03 11:53
+ * @Description:
+ */
 @ServerEndpoint("/websocket")
 public class WebSocket {
     // 存储所有连接到后端的websocket
     private static CopyOnWriteArraySet<WebSocket> clients =
             new CopyOnWriteArraySet<>();
-    // 缓存所有的用户列表<id，username>
+    // 缓存所有的用户列表
     private static Map<String,String> names = new ConcurrentHashMap<>();
     // 绑定当前websocket会话
     private Session session;
     // 当前客户端的用户名
     private String userName;
 
-    //建立连接
     @OnOpen
     public void onOpen(Session session) {
         this.session = session;
@@ -63,7 +66,6 @@ public class WebSocket {
         // 将msg -> MessageFromClient
         MessageFromClient messageFromClient = (MessageFromClient) CommUtil
                 .json2Object(msg,MessageFromClient.class);
-
         if (messageFromClient.getType().equals("1")) {
             // 群聊信息
             String content = messageFromClient.getMsg();
@@ -74,21 +76,19 @@ public class WebSocket {
             for (WebSocket webSocket : clients) {
                 webSocket.sendMsg(CommUtil.object2Json(message2Client));
             }
-
         }else if (messageFromClient.getType().equals("2")) {
             // 私聊信息
             // {"to":"0-1-2-","msg":"33333","type":2}
             // 私聊内容
             String content = messageFromClient.getMsg();
             int toL = messageFromClient.getTo().length();
-            //拆掉最后一个“-”
             String tos[] = messageFromClient.getTo()
                     .substring(0,toL-1).split("-");
             List<String> lists = Arrays.asList(tos);
             // 给指定的SessionID发送信息
             for (WebSocket webSocket : clients) {
                 if (lists.contains(webSocket.session.getId()) &&
-                this.session.getId() != webSocket.session.getId()) {
+                        this.session.getId() != webSocket.session.getId()) {
                     // 发送私聊信息
                     Message2Client message2Client = new Message2Client();
                     message2Client.setContent(userName,content);
@@ -103,10 +103,10 @@ public class WebSocket {
     public void onClose() {
         // 将客户端聊天实体移除
         clients.remove(this);
-        //后台记录清除
-        BaseDao.loadedSet.remove(userName);
         // 将当前用户以及SessionID保存到用户列表
         names.remove(session.getId());
+        //维护在线用户，给登陆操作
+        LoginController.loaded.remove(userName);
         System.out.println("有连接下线了"+
                 ",用户名为"+userName);
         // 发送给所有在线用户一个下线通知
@@ -128,3 +128,4 @@ public class WebSocket {
         }
     }
 }
+

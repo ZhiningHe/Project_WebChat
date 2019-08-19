@@ -1,8 +1,6 @@
-package company.Chat.Controller;
+package Controller;
 
-
-import company.Chat.Service.ServiceHandle;
-
+import service.ServiceHandle;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
+//注册
 @WebServlet(urlPatterns = "/doRegister")
-public class RegiController extends HttpServlet {
+public class RegistController extends HttpServlet {
     private ServiceHandle serviceHandle = new ServiceHandle();
 
     @Override

@@ -1,4 +1,4 @@
-package company.Chat.Utils;
+package Utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,18 +11,14 @@ import java.util.Properties;
  * json的序列化
  */
 public class CommUtil {
-    //gson的对象存储一行序列化信息
     private static final Gson gson = new GsonBuilder().create();
+    private CommUtil(){}
 
-    private CommUtil() {
-    }
-
-    //根据指定文件名获取配置文件
     public static Properties loadProperties(String fileName) {
         Properties properties = new Properties();
         // 获取当前配置文件夹下的文件输入流
         InputStream in = CommUtil.class.getClassLoader()
-                .getResourceAsStream(fileName);//获取全部文件
+                .getResourceAsStream(fileName);
         // 加载配置文件中的所有内容
         try {
             properties.load(in);

@@ -25,6 +25,20 @@ function oBlur_2() {
     }
 }
 
+//验证码失去焦点后验证value值
+function oBlur_3() {
+    var b = document.getElementsByName("check").value;
+    if (!b) { //value值为空
+        document.getElementById("remind_3").innerHTML = "请输入验证码（区分大小写）！";
+        document.getElementById("check").style.marginBottom = 1 + "px";
+        document.getElementById("change_margin_3").style.marginTop = 2 + "px";
+    } else { //value值不为空
+        document.getElementById("remind_3").innerHTML = "";
+        document.getElementById("check").style.marginBottom = 19 + "px";
+        document.getElementById("change_margin_3").style.marginTop = 19 + "px";
+    }
+}
+
 //用户框获得焦点的隐藏提醒
 function oFocus_1() {
     document.getElementById("remind_1").innerHTML = "";
@@ -38,11 +52,19 @@ function oFocus_2() {
     document.getElementById("change_margin_3").style.marginTop = 19 + "px";
 }
 
+function oFocus_3() {
+    document.getElementById("remind_3").innerHTML = "";
+    document.getElementById("check").style.marginBottom = 19 + "px";
+    document.getElementById("change_margin_3").style.marginTop = 19 + "px";
+}
+
 //若输入框为空，阻止表单的提交
 function submitTest() {
-    // 全局变量a和b，分别获取用户框和密码框的value值
+    // 用户框、密码框、男、女、验证码
     var a = document.getElementsByTagName("input")[0].value;
     var b = document.getElementsByTagName("input")[1].value;
+    var c = document.getElementsByName("check").value;
+
     if (!a && !b) { //用户框value值和密码框value值都为空
         document.getElementById("remind_1").innerHTML = "请输入用户名！";
         document.getElementById("change_margin_1").style.marginBottom = 1 + "px";
@@ -64,6 +86,11 @@ function submitTest() {
         document.getElementById("change_margin_1").style.marginBottom = 1 + "px";
         return false;
     }
+    //验证码出错
+    /*else if(!c){
+        document.getElementById("remind_3").innerHTML = "验证码为空！";
+        return false;
+    }*/
 }
 
 //保持聊天窗口滚动条一直在下面

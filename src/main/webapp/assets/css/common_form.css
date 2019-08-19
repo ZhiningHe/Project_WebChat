@@ -47,7 +47,7 @@ body {
     margin-bottom: 19px;
 }
 .content-form form .username,
-.content-form form .password {
+.content-form form .password{
     width: 77%;
     height: 20px;
     padding: 10px;
@@ -56,6 +56,17 @@ body {
     border-radius: 7px;
     letter-spacing: 1px;
 }
+
+.content-form form .check{
+    width: 30%;
+    height: 8px;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid  #cccbcb;
+    border-radius: 7px;
+    letter-spacing: 1px;
+}
+
 .content-form form input:focus {
     outline: none;
     -webkit-box-shadow: 0 0 5px #7bae78;
@@ -94,7 +105,8 @@ body {
 
 /*输入框无内容便提示*/
 #remind_1,
-#remind_2 {
+#remind_2,
+#remind_3{
     width: 76%;
     margin: 0 auto 2px;
     text-align: left;

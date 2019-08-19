@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>注册一个叭~</title>
     <link rel="stylesheet" href="assets/css/common_form.css">
+    <script type="text/javascript" src="assets/js/checkCode.js"></script>
+    <script src="assets/js/common_form_test.js"></script>
+
 </head>
 <body>
     <header>
@@ -11,7 +14,7 @@
     </header>
     <div class="content">
         <img class="content-logo" src="assets/img/robot.jpg" alt="logo">
-        <h1 class="content-title">注册</h1>
+        <h1 class="content-title">注 册</h1>
         <div class="content-form">
             <form method="post" action="/doRegister" onsubmit="return submitTest()">
                 <div id="change_margin_1">
@@ -22,8 +25,29 @@
                 <div id="change_margin_2">
                     <input class="password" type="password" name="password" placeholder="请输入密码" onblur="oBlur_2()" onfocus="oFocus_2()">
                 </div>
-                <!-- input的value为空时弹出提醒 -->
                 <p id="remind_2"></p>
+                <div>
+                <span id="sex">
+                    <input type="radio" name="isAdmin" value="1" id="isAdmin" >男孩纸
+                    &nbsp;&nbsp;
+                    <input type="radio" name="isAdmin" value="0" id="notAdmin" >小菇凉
+                </span>
+                </div>
+
+              <!--  <div id="check">
+                    <img id="checkCode" style="cursor:pointer;" src="${req.contextPath}/checkCode" alt="验证码" width="120" height="50" >
+                    <input class="check" type="text" name="check" placeholder="输入验证码" onblur="oBlur_3()" onfocus="oFocus_3()">
+                </div>-->
+                <div>
+                    <input type="text" id="input" />
+                    <input type="button" id="checkCode" class="code" οnclick="createCode()" />
+                    <input type="button" value="验证" οnclick="validate()" />
+                </div>
+
+                <p id="remind_3"></p>
+
+
+
                 <div id="change_margin_3">
                     <input class="content-form-signup" type="submit" value="创建账户">
                 </div>
@@ -36,7 +60,16 @@
         <a href="" target="_blank"><span style="color: dodgerblue; font-size: 18px;">zhininghe@163.com</span></a>
         <a href="https://github.com/ZhiningHe" target="_blank"><span style="color: dodgerblue; font-size: 18px;">Github</span></a>
     </div>
-<script src="assets/js/common_form_test.js"></script>
+
+<script>
+   window.onclick =  function () {
+       var img = document.getElementById("checkCode");
+       img.onclick = function () {
+           var date = new Date().getTime();
+           img.src = "webchat2_0/checkCode?" + date;
+       }
+   }
+</script>
 
 </body>
 </html>

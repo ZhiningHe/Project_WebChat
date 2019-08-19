@@ -1,7 +1,8 @@
-package company.Chat.Service;
+package service;
 
-import company.Chat.entity.User;
-import company.Chat.dao.BaseDao;
+
+import dao.BaseDao;
+import entity.User;
 
 /**
  * 服务器业务
@@ -27,5 +28,6 @@ public class ServiceHandle {
     }
 
 }
+
 
 

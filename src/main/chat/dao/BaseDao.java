@@ -1,14 +1,9 @@
-package company.Chat.dao;
+package dao;
 
-
-import company.Chat.entity.User;
+import entity.User;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.HashSet;
-
-import static java.io.FileDescriptor.out;
 
 /**
  * 关于用户的dao层
@@ -17,13 +12,12 @@ import static java.io.FileDescriptor.out;
  *
  */
 public class BaseDao extends DaoHandle {
-    public static HashSet<String> loadedSet= new HashSet<>();
     //用户登陆 select
     public User Client_loading(String userName, String password) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        User user;
+        User user = null;
         try {
             connection = getConnection();
             String sql = "SELECT * FROM user WHERE username =? AND"+" password = ?;";
@@ -35,9 +29,6 @@ public class BaseDao extends DaoHandle {
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 user = getClass_User(resultSet);
-                if (loadedSet.add(user.getUserName())){
-                    return user;
-                }
             }
         } catch (Exception e) {
             System.err.println("用户登陆异常");
@@ -45,7 +36,7 @@ public class BaseDao extends DaoHandle {
         } finally {
             closeRsc(connection, statement, resultSet);
         }
-       return null;
+        return user;
     }
 
     //用户注册 insert
@@ -71,6 +62,54 @@ public class BaseDao extends DaoHandle {
         }
         return isSuccess;
     }
+    public boolean Client_register(User user, String img_url) {
+        String userName = user.getUserName();
+        String password = user.getPassword();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        boolean isSuccess = false;
+        try {
+            connection = getConnection();
+            String sql = "INSERT INTO user(username,password,img)" + "values(?,?,?)";
+            statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, userName);
+            statement.setString(2, password);
+            statement.setString(3, img_url);
+            isSuccess = (statement.executeUpdate() == 1);
+
+        } catch (SQLException e) {
+            System.err.println("用户注册失败");
+            e.printStackTrace();
+        }finally {
+            closeRsc(connection, statement);
+        }
+        return isSuccess;
+    }
+    public boolean Client_register(User user,String img_url,String introduce){
+        String userName = user.getUserName();
+        String password = user.getPassword();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        boolean isSuccess = false;
+        try {
+            connection = getConnection();
+            String sql = "INSERT INTO user(username,password,img,introduce)" + "values(?,?,?,?)";
+            statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, userName);
+            statement.setString(2, password);
+            statement.setString(3, img_url);
+            statement.setString(4,introduce);
+            isSuccess = (statement.executeUpdate() == 1);
+
+        } catch (SQLException e) {
+            System.err.println("用户注册失败");
+            e.printStackTrace();
+        }finally {
+            closeRsc(connection, statement);
+        }
+        return isSuccess;
+    }
+
     //将数据表信息（resultSet）封装到user类中
     public User getClass_User(ResultSet resultSet) throws SQLException {
         User user = new User();
@@ -80,3 +119,4 @@ public class BaseDao extends DaoHandle {
         return user;
     }
 }
+

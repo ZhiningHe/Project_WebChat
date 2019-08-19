@@ -1,5 +1,4 @@
-package company.Chat.entity;
-
+package entity;
 
 import lombok.Data;
 
@@ -12,11 +11,6 @@ public class User {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
 
     public String getUserName() {
         return userName;
@@ -35,3 +29,4 @@ public class User {
     }
 
 }
+
