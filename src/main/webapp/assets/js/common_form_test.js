@@ -63,7 +63,7 @@ function submitTest() {
     // 用户框、密码框、男、女、验证码
     var a = document.getElementsByTagName("input")[0].value;
     var b = document.getElementsByTagName("input")[1].value;
-    var c = document.getElementsByName("check").value;
+    var c = document.getElementsByTagName("input")[2].value;
 
     if (!a && !b) { //用户框value值和密码框value值都为空
         document.getElementById("remind_1").innerHTML = "请输入用户名！";
@@ -87,11 +87,13 @@ function submitTest() {
         return false;
     }
     //验证码出错
-    /*else if(!c){
-        document.getElementById("remind_3").innerHTML = "验证码为空！";
+    else if(!c){
+        document.getElementById("remind_3").innerHTML = "请正确填写验证码！";
         return false;
-    }*/
+    }
 }
+
+
 
 //保持聊天窗口滚动条一直在下面
 function scrollToBottom(){

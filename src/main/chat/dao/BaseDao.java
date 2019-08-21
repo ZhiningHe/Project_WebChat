@@ -62,53 +62,7 @@ public class BaseDao extends DaoHandle {
         }
         return isSuccess;
     }
-    public boolean Client_register(User user, String img_url) {
-        String userName = user.getUserName();
-        String password = user.getPassword();
-        Connection connection = null;
-        PreparedStatement statement = null;
-        boolean isSuccess = false;
-        try {
-            connection = getConnection();
-            String sql = "INSERT INTO user(username,password,img)" + "values(?,?,?)";
-            statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, userName);
-            statement.setString(2, password);
-            statement.setString(3, img_url);
-            isSuccess = (statement.executeUpdate() == 1);
 
-        } catch (SQLException e) {
-            System.err.println("用户注册失败");
-            e.printStackTrace();
-        }finally {
-            closeRsc(connection, statement);
-        }
-        return isSuccess;
-    }
-    public boolean Client_register(User user,String img_url,String introduce){
-        String userName = user.getUserName();
-        String password = user.getPassword();
-        Connection connection = null;
-        PreparedStatement statement = null;
-        boolean isSuccess = false;
-        try {
-            connection = getConnection();
-            String sql = "INSERT INTO user(username,password,img,introduce)" + "values(?,?,?,?)";
-            statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, userName);
-            statement.setString(2, password);
-            statement.setString(3, img_url);
-            statement.setString(4,introduce);
-            isSuccess = (statement.executeUpdate() == 1);
-
-        } catch (SQLException e) {
-            System.err.println("用户注册失败");
-            e.printStackTrace();
-        }finally {
-            closeRsc(connection, statement);
-        }
-        return isSuccess;
-    }
 
     //将数据表信息（resultSet）封装到user类中
     public User getClass_User(ResultSet resultSet) throws SQLException {
