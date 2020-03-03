@@ -1,6 +1,6 @@
 package dao;
 
-import entity.User;
+import   entity.User;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.sql.*;
@@ -11,7 +11,7 @@ import java.sql.*;
  * 2.用户的注册
  *
  */
-public class BaseDao extends DaoHandle {
+public class BaseDao extends dao.DaoHandle {
     //用户登陆 select
     public User Client_loading(String userName, String password) {
         Connection connection = null;

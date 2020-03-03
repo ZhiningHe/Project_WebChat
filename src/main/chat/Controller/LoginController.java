@@ -1,12 +1,13 @@
-package Controller;
+package main.chat.Controller;
 
 import	java.util.HashMap;
 
-import Config.FreeMarkerListener;
+
 import Utils.CommUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import main.chat.Config.FreeMarkerListener;
 import service.ServiceHandle;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -76,10 +76,13 @@ public class LoginController extends HttpServlet {
         doGet(req,resp);
     }
 
+    //
     private Template getTemplate(HttpServletRequest req,String fileName) {
+        //获取freemaker的配置
         Configuration cfg = (Configuration)
                 req.getServletContext().getAttribute(FreeMarkerListener.TEMPLATE_KEY);
         try {
+            //加载模板
             return cfg.getTemplate(fileName);
         } catch (IOException e) {
             e.printStackTrace();

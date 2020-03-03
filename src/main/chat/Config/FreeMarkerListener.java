@@ -1,4 +1,4 @@
-package Config;
+package main.chat.Config;
 
 
 import	java.io.File;
@@ -11,11 +11,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-/**
- * @Author: yuisama
- * @Date: 2019-08-06 10:02
- * @Description:
- */
+//freemaker的配置
 @WebListener
 public class FreeMarkerListener implements ServletContextListener {
     public static final String TEMPLATE_KEY = "_template_";

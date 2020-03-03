@@ -1,9 +1,10 @@
-package service;
+package main.chat.service;
 
-import Controller.LoginController;
+
 import Utils.CommUtil;
 import entity.Message2Client;
 import entity.MessageFromClient;
+import main.chat.Controller.LoginController;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -14,11 +15,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-/**
- * @Author: yuisama
- * @Date: 2019-08-03 11:53
- * @Description:
- */
+
 @ServerEndpoint("/websocket")
 public class WebSocket {
     // 存储所有连接到后端的websocket

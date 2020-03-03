@@ -1,4 +1,4 @@
-package Controller;
+package main.chat.Controller;
 
 
 import javax.imageio.ImageIO;
@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
